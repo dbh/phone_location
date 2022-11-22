@@ -60,6 +60,24 @@ class _Geo extends State<Geo> {
                   )
                 ],
               ),
+              Row(
+                children: [
+                  Text(
+                    'Speed',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Card(child: Text(_currentPosition.speed.toString()))
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Altitude',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Card(child: Text(_currentPosition.altitude.toString()))
+                ],
+              )
             ],
           )
         else
