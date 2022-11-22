@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:phone_location/screens/geo_screen.dart';
+import 'package:phone_location/screens/phone_info_screen.dart';
 import 'geo.dart';
 import 'device_info.dart';
+import './screens/intro_screen.dart';
+import './shared/menu_drawer.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,63 +21,70 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage('Locative Phone'),
+      // home: IntroScreen(),
+      routes: {
+        '/': (context) => IntroScreen(),
+        'phone': (context) => PhoneInfo(),
+        'geo': (context) => GeoInfo()
+      },
+      initialRoute: '/',
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  String title = 'whatever';
-  MyHomePage(String title) {
-    this.title = title;
-  }
+// class MyHomePage extends StatefulWidget {
+//   String title = 'whatever';
+//   MyHomePage(String title) {
+//     this.title = title;
+//   }
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+// class _MyHomePageState extends State<MyHomePage> {
+//   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+//   void _incrementCounter() {
+//     setState(() {
+//       _counter++;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // const Text(
-            //   'You have pushed the button this many times:',
-            // ),
-            // Text(
-            //   'Times: ',
-            //   style: TextStyle(fontWeight: FontWeight.bold),
-            // ),
-            // Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.displaySmall,
-            // ),
-            DeviceInfo(),
-            Geo(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(items: [
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.home),
+//           label: 'Home',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.phone_iphone),
+//           label: 'Phone',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.map),
+//           label: 'Location',
+//         ),
+//       ]),
+//       drawer: MenuDrawer(),
+//       body: Center(
+//         // Center is a layout widget. It takes a single child and positions it
+//         // in the middle of the parent.
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[Text('Home')],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: _incrementCounter,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
+//       ), // This trailing comma makes auto-formatting nicer for build methods.
+//     );
+//   }
+// }
