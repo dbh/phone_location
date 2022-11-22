@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class BotNavBarCustom extends StatelessWidget {
-  const BotNavBarCustom({Key key}) : super(key: key);
+class MenuBottom extends StatelessWidget {
+  const MenuBottom({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      // ignore: prefer_const_literals_to_create_immutables
       items: [
         const BottomNavigationBarItem(
           icon: Icon(Icons.home),

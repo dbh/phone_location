@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../geo.dart';
 import '../shared/menu_drawer.dart';
-import '../shared/bot_nav_bar_custom.dart';
+import '../shared/menu_bottom.dart';
 
-class GeoInfo extends StatelessWidget {
-  const GeoInfo({Key key}) : super(key: key);
+class GeoScreen extends StatelessWidget {
+  const GeoScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class GeoInfo extends StatelessWidget {
         Text('Geo'),
         Geo(),
       ]),
-      bottomNavigationBar: BotNavBarCustom(),
+      bottomNavigationBar: const MenuBottom(),
     );
   }
 }

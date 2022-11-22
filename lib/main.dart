@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
       // home: IntroScreen(),
       routes: {
         '/': (context) => IntroScreen(),
-        'phone': (context) => PhoneInfo(),
-        'geo': (context) => GeoInfo()
+        'phone': (context) => PhoneScreen(),
+        'geo': (context) => GeoScreen()
       },
       initialRoute: '/',
     );

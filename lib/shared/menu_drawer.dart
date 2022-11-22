@@ -44,10 +44,10 @@ class MenuDrawer extends StatelessWidget {
               screen = IntroScreen();
               break;
             case 'Phone Info':
-              screen = PhoneInfo();
+              screen = PhoneScreen();
               break;
             case 'Geo Info':
-              screen = GeoInfo();
+              screen = GeoScreen();
               break;
             default:
           }
