@@ -12,8 +12,9 @@ class Geo extends StatefulWidget {
 }
 
 class _Geo extends State<Geo> {
-  Position _currentPosition;
-  LocationPermission _lp;
+  Position? _currentPosition;
+  LocationPermission? _lp;
+  bool isSendChecked = false;
 
   _Geo() {
     print('_Geo constructor');
@@ -22,9 +23,31 @@ class _Geo extends State<Geo> {
 
   @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.red;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        Checkbox(
+          checkColor: Colors.white,
+          fillColor: MaterialStateProperty.resolveWith(getColor),
+          value: isSendChecked,
+          onChanged: (bool? value) {
+            setState(() {
+              isSendChecked = value!;
+            });
+          },
+        ),
         ElevatedButton(
           child: Text("Get location"),
           onPressed: () {
@@ -44,7 +67,7 @@ class _Geo extends State<Geo> {
                   ),
                   Card(
                     child: Text(
-                      _currentPosition.latitude.toString(),
+                      _currentPosition!.latitude.toString(),
                     ),
                   )
                 ],
@@ -56,7 +79,7 @@ class _Geo extends State<Geo> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Card(
-                    child: Text(_currentPosition.longitude.toString()),
+                    child: Text(_currentPosition!.longitude.toString()),
                   )
                 ],
               ),
@@ -66,7 +89,7 @@ class _Geo extends State<Geo> {
                     'Speed',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Card(child: Text(_currentPosition.speed.toString()))
+                  Card(child: Text(_currentPosition!.speed.toString()))
                 ],
               ),
               Row(
@@ -75,7 +98,7 @@ class _Geo extends State<Geo> {
                     'Altitude',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Card(child: Text(_currentPosition.altitude.toString()))
+                  Card(child: Text(_currentPosition!.altitude.toString()))
                 ],
               )
             ],

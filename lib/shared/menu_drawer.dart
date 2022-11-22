@@ -4,7 +4,7 @@ import '../screens/phone_info_screen.dart';
 import '../screens/geo_screen.dart';
 
 class MenuDrawer extends StatelessWidget {
-  const MenuDrawer({Key key}) : super(key: key);
+  const MenuDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

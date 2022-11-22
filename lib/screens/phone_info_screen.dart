@@ -4,7 +4,7 @@ import '../shared/menu_drawer.dart';
 import '../shared/menu_bottom.dart';
 
 class PhoneScreen extends StatelessWidget {
-  const PhoneScreen({Key key}) : super(key: key);
+  const PhoneScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

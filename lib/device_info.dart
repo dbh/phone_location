@@ -10,13 +10,13 @@ class DeviceInfo extends StatefulWidget {
 }
 
 class _DeviceInfoState extends State<DeviceInfo> {
-  Map<String, Object> _info = Map<String, Object>();
+  Map<String, Object?> _info = Map<String, Object>();
 
   _DeviceInfoState() {
     _getInfo();
   }
 
-  Future<String> _getInfo() async {
+  Future<String?> _getInfo() async {
     final devInfoPlugin = DeviceInfoPlugin();
     final devInfo = await devInfoPlugin.deviceInfo;
     print(devInfo);
