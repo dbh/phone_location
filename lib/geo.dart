@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 import 'package:mqtt_client/mqtt_client.dart';
+import 'package:phone_location/shared/user_shared_prefs.dart';
 
 class Geo extends StatefulWidget {
   const Geo({Key? key}) : super(key: key);
@@ -28,11 +29,19 @@ class _Geo extends State<Geo> {
   }
 
   _getMqtt() async {
-    _client = MqttServerClient('n00b.davidbharrison.com', 'x');
+    var server = UserSharedPrefs.getMqttServer();
+    print(server);
+
+    var user = UserSharedPrefs.getMqttUser();
+    print(user);
+
+    var pw = UserSharedPrefs.getMqttPassword();
+    print('pw ${pw}');
+
+    _client = MqttServerClient(UserSharedPrefs.getMqttServer() ?? '', 'x');
     if (_client != null) {
-      MqttClientConnectionStatus? connStatus =
-          await _client!.connect('dbh', 'BOGUS');
-      // .then((value) => print(connStatus));
+      MqttClientConnectionStatus? connStatus = await _client!.connect(
+          UserSharedPrefs.getMqttUser(), UserSharedPrefs.getMqttPassword());
       print(connStatus);
     }
   }
