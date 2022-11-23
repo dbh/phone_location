@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import '../shared/menu_drawer.dart';
 import '../shared/menu_bottom.dart';
 
-class IntroScreen extends StatelessWidget {
-  const IntroScreen({Key? key}) : super(key: key);
+class PreferencesScreen extends StatelessWidget {
+  const PreferencesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Intro')),
+      appBar: AppBar(title: Text('Prefs')),
       drawer: MenuDrawer(),
-      body: Center(child: Text('Intro')),
+      body: Center(child: Text('Prefs')),
       bottomNavigationBar: const MenuBottom(),
     );
   }

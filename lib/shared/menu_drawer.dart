@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../screens/intro_screen.dart';
+import '../screens/home_screen.dart';
 import '../screens/phone_info_screen.dart';
 import '../screens/geo_screen.dart';
+import '../screens/preferences.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({Key? key}) : super(key: key);
@@ -16,11 +17,7 @@ class MenuDrawer extends StatelessWidget {
   }
 
   List<Widget> buildMenuItems(BuildContext context) {
-    final List<String> menuTitles = [
-      'Home',
-      'Phone Info',
-      'Geo Info',
-    ];
+    final List<String> menuTitles = ['Home', 'Phone Info', 'Geo Info', 'Prefs'];
 
     List<Widget> menuItems = [];
 
@@ -41,13 +38,16 @@ class MenuDrawer extends StatelessWidget {
         onTap: () {
           switch (element) {
             case 'Home':
-              screen = IntroScreen();
+              screen = HomeScreen();
               break;
             case 'Phone Info':
               screen = PhoneScreen();
               break;
             case 'Geo Info':
               screen = GeoScreen();
+              break;
+            case 'Prefs':
+              screen = PreferencesScreen();
               break;
             default:
           }

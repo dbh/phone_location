@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:phone_location/screens/geo_screen.dart';
 import 'package:phone_location/screens/phone_info_screen.dart';
+import 'package:phone_location/screens/preferences.dart';
 import 'geo.dart';
 import 'device_info.dart';
-import './screens/intro_screen.dart';
+import 'screens/home_screen.dart';
 import './shared/menu_drawer.dart';
 
 void main() {
@@ -21,11 +22,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: IntroScreen(),
+      // home: HomeScreen(),
       routes: {
-        '/': (context) => IntroScreen(),
+        '/': (context) => HomeScreen(),
         'phone': (context) => PhoneScreen(),
-        'geo': (context) => GeoScreen()
+        'geo': (context) => GeoScreen(),
+        'prefs': (context) => PreferencesScreen()
       },
       initialRoute: '/',
     );

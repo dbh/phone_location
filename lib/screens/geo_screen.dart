@@ -12,7 +12,6 @@ class GeoScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Geo')),
       drawer: MenuDrawer(),
       body: Column(children: [
-        Text('Geo'),
         Geo(),
       ]),
       bottomNavigationBar: const MenuBottom(),

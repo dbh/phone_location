@@ -1,11 +1,15 @@
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
+
+import 'package:mqtt_client/mqtt_client.dart';
 
 class Geo extends StatefulWidget {
-  // const Geo({Key key}) : super(key: key);
+  const Geo({Key? key}) : super(key: key);
 
   @override
   State<Geo> createState() => _Geo();
@@ -14,11 +18,34 @@ class Geo extends StatefulWidget {
 class _Geo extends State<Geo> {
   Position? _currentPosition;
   LocationPermission? _lp;
-  bool isSendChecked = false;
+  bool _isSendChecked = false;
+  MqttServerClient? _client;
 
   _Geo() {
     print('_Geo constructor');
     _getPermission();
+    _getMqtt();
+  }
+
+  _getMqtt() async {
+    _client = MqttServerClient('n00b.davidbharrison.com', 'x');
+    if (_client != null) {
+      MqttClientConnectionStatus? connStatus =
+          await _client!.connect('dbh', 'BOGUS');
+      // .then((value) => print(connStatus));
+      print(connStatus);
+    }
+  }
+
+  _sendMqttMsg(String message) {
+    final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
+    if (builder != null) {
+      var myPayload = builder.payload;
+      builder.addString(message);
+      var publishMessage = _client!
+          .publishMessage("phone_location", MqttQos.atLeastOnce, myPayload!);
+      print(publishMessage);
+    }
   }
 
   @override
@@ -38,15 +65,20 @@ class _Geo extends State<Geo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Checkbox(
-          checkColor: Colors.white,
-          fillColor: MaterialStateProperty.resolveWith(getColor),
-          value: isSendChecked,
-          onChanged: (bool? value) {
-            setState(() {
-              isSendChecked = value!;
-            });
-          },
+        Row(
+          children: [
+            Text('Send to Server?: '),
+            Checkbox(
+              checkColor: Colors.white,
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              value: _isSendChecked,
+              onChanged: (bool? value) {
+                setState(() {
+                  _isSendChecked = value!;
+                });
+              },
+            )
+          ],
         ),
         ElevatedButton(
           child: Text("Get location"),
@@ -138,6 +170,11 @@ class _Geo extends State<Geo> {
       setState(() {
         print(position);
         _currentPosition = position;
+        if (_isSendChecked) {
+          var posMap = position.toJson();
+          posMap['device_name'] = 'NULL';
+          _sendMqttMsg(posMap.toString());
+        }
       });
     }).catchError((e) {
       print(e);
