@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phone_location/screens/geo_screen.dart';
 import 'package:phone_location/screens/phone_info_screen.dart';
 import 'package:phone_location/screens/preferences.dart';
+import 'package:phone_location/shared/user_phone_data.dart';
 import 'package:phone_location/shared/user_shared_prefs.dart';
 import 'geo.dart';
 import 'device_info.dart';
@@ -12,6 +13,7 @@ import './shared/user_shared_prefs.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserSharedPrefs.init();
+  await UserPhoneData.init();
   runApp(MyApp());
 }
 
