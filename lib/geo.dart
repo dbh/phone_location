@@ -175,7 +175,24 @@ class _Geo extends State<Geo> {
           var posMap = position.toJson();
           posMap['device_name'] = UserPhoneData.getName();
           posMap['device_id'] = UserPhoneData.getVendorID();
-          _sendMqttMsg(posMap.toString());
+          print(posMap);
+          var event_ts = DateTime.now().toIso8601String();
+          var data = '''{
+            "device_name": "${posMap['device_name']}",
+            "device_id":   "${posMap["device_id"]}",
+            "latitude":    ${posMap["latitude"]},
+            "longitude":   ${posMap["longitude"]},
+            "altitude":    ${posMap['altitude']},
+            "speed":       ${posMap['speed']},
+            "timestamp":   ${posMap["timestamp"]},
+            "event_ts":    "${event_ts}"
+          }''';
+          data = data
+              .replaceAll("\n", " ")
+              .replaceAll("\t", "")
+              .replaceAll("  ", " ");
+          print(data);
+          _sendMqttMsg(data);
         }
       });
     }).catchError((e) {
