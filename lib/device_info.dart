@@ -9,11 +9,12 @@ class DeviceInfo extends StatelessWidget {
     return Column(
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("name: ${UserPhoneData.getName()}"),
             Text("model: ${UserPhoneData.getModel()}"),
             Text("systemName: ${UserPhoneData.getSystemName()}"),
-            Text("identifierForVendor: ${UserPhoneData.getVendorID()}"),
+            Text("id: ${UserPhoneData.getVendorID()}"),
           ],
         )
       ],

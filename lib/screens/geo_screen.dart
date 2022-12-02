@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
+import 'package:phone_location/device_info.dart';
 
 import 'package:phone_location/shared/user_phone_data.dart';
 import 'package:phone_location/shared/user_shared_prefs.dart';
@@ -72,24 +73,21 @@ class _Geo extends State<GeoScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Geo')),
       drawer: MenuDrawer(),
-      body: Column(children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: [
-                Text('Send to Server?: '),
-                Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.resolveWith(getColor),
-                  value: _isSendChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isSendChecked = value!;
-                    });
-                  },
-                )
-              ],
+      body: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            DeviceInfo(),
+            Text('Send to Server?: '),
+            Checkbox(
+              checkColor: Colors.white,
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              value: _isSendChecked,
+              onChanged: (bool? value) {
+                setState(() {
+                  _isSendChecked = value!;
+                });
+              },
             ),
             ElevatedButton(
               child: Text("Get location"),
@@ -99,8 +97,8 @@ class _Geo extends State<GeoScreen> {
             ),
             if (_currentPosition != null)
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     children: [
@@ -154,9 +152,7 @@ class _Geo extends State<GeoScreen> {
                   fontStyle: FontStyle.italic,
                 ),
               )
-          ],
-        )
-      ]),
+          ]),
       bottomNavigationBar: const MenuBottom(),
     );
   }
