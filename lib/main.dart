@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+// import 'package:phone_location/screens/geo_screen_old.dart';
 import 'package:phone_location/screens/geo_screen.dart';
 import 'package:phone_location/screens/phone_info_screen.dart';
 import 'package:phone_location/screens/preferences.dart';
 import 'package:phone_location/shared/user_phone_data.dart';
 import 'package:phone_location/shared/user_shared_prefs.dart';
-import 'geo.dart';
-import 'device_info.dart';
+// import 'geo.dart';
+// import 'device_info.dart';
 import 'screens/home_screen.dart';
 import './shared/menu_drawer.dart';
 import './shared/user_shared_prefs.dart';

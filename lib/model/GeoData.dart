@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class GeoData {
   final String device_id;
   final String device_name;

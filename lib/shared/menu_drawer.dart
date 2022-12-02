@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
 import '../screens/phone_info_screen.dart';
-import '../screens/geo_screen.dart';
 import '../screens/preferences.dart';
+import '../screens/geo_screen.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({Key? key}) : super(key: key);
