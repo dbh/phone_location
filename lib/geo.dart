@@ -2,6 +2,8 @@
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -9,6 +11,7 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:phone_location/shared/user_phone_data.dart';
 import 'package:phone_location/shared/user_shared_prefs.dart';
+import './model/GeoData.dart';
 
 class Geo extends StatefulWidget {
   const Geo({Key? key}) : super(key: key);
@@ -177,22 +180,13 @@ class _Geo extends State<Geo> {
           posMap['device_id'] = UserPhoneData.getVendorID();
           print(posMap);
           var event_ts = DateTime.now().toIso8601String();
-          var data = '''{
-            "device_name": "${posMap['device_name']}",
-            "device_id":   "${posMap["device_id"]}",
-            "latitude":    ${posMap["latitude"]},
-            "longitude":   ${posMap["longitude"]},
-            "altitude":    ${posMap['altitude']},
-            "speed":       ${posMap['speed']},
-            "timestamp":   ${posMap["timestamp"]},
-            "event_ts":    "${event_ts}"
-          }''';
-          data = data
-              .replaceAll("\n", " ")
-              .replaceAll("\t", "")
-              .replaceAll("  ", " ");
-          print(data);
-          _sendMqttMsg(data);
+          posMap['event_ts'] = event_ts;
+
+          var gd = GeoData.fromJson(posMap);
+          print(gd);
+          var json = jsonEncode(gd);
+          print(json);
+          _sendMqttMsg(json);
         }
       });
     }).catchError((e) {
