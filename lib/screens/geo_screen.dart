@@ -15,7 +15,7 @@ import 'package:phone_location/shared/user_shared_prefs.dart';
 import '../shared/menu_drawer.dart';
 import '../shared/menu_bottom.dart';
 
-import '../model/GeoData.dart';
+import '../model/geo_data.dart';
 
 class GeoScreen extends StatefulWidget {
   const GeoScreen({Key? key}) : super(key: key);
