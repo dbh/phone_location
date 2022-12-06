@@ -7,16 +7,12 @@ class DeviceInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("name: ${UserPhoneData.getName()}"),
-            Text("model: ${UserPhoneData.getModel()}"),
-            Text("systemName: ${UserPhoneData.getSystemName()}"),
-            Text("id: ${UserPhoneData.getVendorID()}"),
-          ],
-        )
+        Text("name: ${UserPhoneData.getName()}"),
+        Text("model: ${UserPhoneData.getModel()}"),
+        Text("systemName: ${UserPhoneData.getSystemName()}"),
+        Text("id: ${UserPhoneData.getVendorID()}"),
       ],
     );
   }
