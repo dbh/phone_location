@@ -26,6 +26,7 @@ class GeoScreen extends StatefulWidget {
 
 class _Geo extends State<GeoScreen> {
   Position? _currentPosition;
+  var positions = <GeoData>[];
   LocationPermission? _lp;
   bool _isSendChecked = false;
   MqttServerClient? _client;
@@ -74,11 +75,12 @@ class _Geo extends State<GeoScreen> {
       appBar: AppBar(title: Text('Geo')),
       drawer: MenuDrawer(),
       body: Column(
+
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DeviceInfo(),
-            Text('Send to Server?: '),
+            const Text('Send to Server?: '),
             Checkbox(
               checkColor: Colors.white,
               fillColor: MaterialStateProperty.resolveWith(getColor),
@@ -102,7 +104,7 @@ class _Geo extends State<GeoScreen> {
                 children: [
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Lat:',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -115,7 +117,7 @@ class _Geo extends State<GeoScreen> {
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Lon:',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -126,7 +128,7 @@ class _Geo extends State<GeoScreen> {
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Speed',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -135,7 +137,7 @@ class _Geo extends State<GeoScreen> {
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Altitude',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -145,7 +147,7 @@ class _Geo extends State<GeoScreen> {
                 ],
               )
             else
-              Text(
+              const Text(
                 'No location yet',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -180,14 +182,19 @@ class _Geo extends State<GeoScreen> {
       setState(() {
         print(position);
         _currentPosition = position;
-        if (_isSendChecked) {
-          var posMap = position.toJson();
-          posMap['device_name'] = UserPhoneData.getName();
-          posMap['device_id'] = UserPhoneData.getVendorID();
-          posMap['event_ts'] = DateTime.now().toIso8601String();
-          print(posMap);
 
-          var gd = GeoData.fromJson(posMap);
+        print("Position count: ${positions.length}");
+
+        var posMap = position.toJson();
+        posMap['device_name'] = UserPhoneData.getName();
+        posMap['device_id'] = UserPhoneData.getVendorID();
+        posMap['event_ts'] = DateTime.now().toIso8601String();
+        print(posMap);
+
+        var gd = GeoData.fromJson(posMap);
+        positions.add(gd);
+
+        if (_isSendChecked) {
           var json = jsonEncode(gd);
           print(json);
           _sendMqttMsg(json);
