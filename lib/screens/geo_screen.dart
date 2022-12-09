@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
+
+import 'package:intl/intl.dart';
+
 import 'package:phone_location/device_info.dart';
+import 'package:phone_location/screens/geo_list_view.dart';
 
 import 'package:phone_location/shared/user_phone_data.dart';
 import 'package:phone_location/shared/user_shared_prefs.dart';
@@ -75,86 +79,87 @@ class _Geo extends State<GeoScreen> {
       appBar: AppBar(title: Text('Geo')),
       drawer: MenuDrawer(),
       body: Column(
-
-          // mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DeviceInfo(),
-            const Text('Send to Server?: '),
-            Checkbox(
-              checkColor: Colors.white,
-              fillColor: MaterialStateProperty.resolveWith(getColor),
-              value: _isSendChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  _isSendChecked = value!;
-                });
-              },
-            ),
-            ElevatedButton(
-              child: Text("Get location"),
-              onPressed: () {
-                _getCurrentLocation();
-              },
-            ),
-            if (_currentPosition != null)
-              Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      const Text(
-                        'Lat:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DeviceInfo(),
+          const Text('Send to Server?: '),
+          Checkbox(
+            checkColor: Colors.white,
+            fillColor: MaterialStateProperty.resolveWith(getColor),
+            value: _isSendChecked,
+            onChanged: (bool? value) {
+              setState(() {
+                _isSendChecked = value!;
+              });
+            },
+          ),
+          ElevatedButton(
+            child: Text("Get location"),
+            onPressed: () {
+              _getCurrentLocation();
+            },
+          ),
+          if (_currentPosition != null)
+            Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      'Lat:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Card(
+                      child: Text(
+                        _currentPosition!.latitude.toString(),
                       ),
-                      Card(
-                        child: Text(
-                          _currentPosition!.latitude.toString(),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Lon:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Card(
-                        child: Text(_currentPosition!.longitude.toString()),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Speed',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Card(child: Text(_currentPosition!.speed.toString()))
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Altitude',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Card(child: Text(_currentPosition!.altitude.toString()))
-                    ],
-                  )
-                ],
-              )
-            else
-              const Text(
-                'No location yet',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
+                    )
+                  ],
                 ),
-              )
-          ]),
+                Row(
+                  children: [
+                    const Text(
+                      'Lon:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Card(
+                      child: Text(_currentPosition!.longitude.toString()),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Speed',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Card(child: Text(_currentPosition!.speed.toString()))
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Altitude',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Card(child: Text(_currentPosition!.altitude.toString()))
+                  ],
+                )
+              ],
+            )
+          else
+            const Text(
+              'No location yet',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          GeoListView(positions)
+        ],
+      ),
       bottomNavigationBar: const MenuBottom(),
     );
   }
