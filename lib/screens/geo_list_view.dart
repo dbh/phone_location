@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class GeoListView extends StatelessWidget {
-  // const GeoListView({Key? key}) : super(key: key);
-  final List<GeoData> positions;
+  List<GeoData> positions = [];
 
-  GeoListView(this.positions);
+  GeoListView(List<GeoData> pos) {
+    this.positions = List.from(pos.reversed);
+  }
 
   @override
   Widget build(BuildContext context) {
