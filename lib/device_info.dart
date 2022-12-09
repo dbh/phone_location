@@ -12,7 +12,8 @@ class DeviceInfo extends StatelessWidget {
         Text("name: ${UserPhoneData.getName()}"),
         Text("model: ${UserPhoneData.getModel()}"),
         Text("systemName: ${UserPhoneData.getSystemName()}"),
-        Text("id: ${UserPhoneData.getVendorID()}"),
+        Text("id: ${UserPhoneData.getVendorID()}",
+            style: TextStyle(fontSize: 10)),
       ],
     );
   }

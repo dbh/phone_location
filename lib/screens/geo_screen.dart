@@ -1,7 +1,3 @@
-// import 'package:flutter/src/foundation/key.dart';
-// import 'package:flutter/src/widgets/container.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -9,17 +5,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
-import 'package:intl/intl.dart';
-
-import 'package:phone_location/device_info.dart';
-import 'package:phone_location/screens/geo_list_view.dart';
-
-import 'package:phone_location/shared/user_phone_data.dart';
-import 'package:phone_location/shared/user_shared_prefs.dart';
+import '../device_info.dart';
+import '../model/geo_data.dart';
+import './geo_list_view.dart';
+import '../shared/user_phone_data.dart';
+import '../shared/user_shared_prefs.dart';
 import '../shared/menu_drawer.dart';
 import '../shared/menu_bottom.dart';
-
-import '../model/geo_data.dart';
 
 class GeoScreen extends StatefulWidget {
   const GeoScreen({Key? key}) : super(key: key);
@@ -83,16 +75,20 @@ class _Geo extends State<GeoScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DeviceInfo(),
-          const Text('Send to Server?: '),
-          Checkbox(
-            checkColor: Colors.white,
-            fillColor: MaterialStateProperty.resolveWith(getColor),
-            value: _isSendChecked,
-            onChanged: (bool? value) {
-              setState(() {
-                _isSendChecked = value!;
-              });
-            },
+          Row(
+            children: [
+              const Text('Send to Server?: '),
+              Checkbox(
+                checkColor: Colors.white,
+                fillColor: MaterialStateProperty.resolveWith(getColor),
+                value: _isSendChecked,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _isSendChecked = value!;
+                  });
+                },
+              )
+            ],
           ),
           ElevatedButton(
             child: Text("Get location"),
