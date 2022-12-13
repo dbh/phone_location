@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
-// import '../screens/phone_info_screen.dart';
 import '../screens/preferences.dart';
 import '../screens/geo_screen.dart';
 
@@ -19,15 +18,15 @@ class MenuDrawer extends StatelessWidget {
   List<Widget> buildMenuItems(BuildContext context) {
     final List<String> menuTitles = [
       'Home',
-      // 'Phone Info',
       'Geo Info',
       'Prefs',
     ];
 
     List<Widget> menuItems = [];
 
+    // ignore: prefer_const_constructors
     menuItems.add(DrawerHeader(
-        decoration: BoxDecoration(color: Colors.blue),
+        decoration: const BoxDecoration(color: Colors.blue),
         child: const Text('Locative Phone',
             style: TextStyle(
               color: Colors.white,
@@ -38,18 +37,18 @@ class MenuDrawer extends StatelessWidget {
       menuItems.add(ListTile(
         title: Text(
           element,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
         onTap: () {
           switch (element) {
             case 'Home':
-              screen = HomeScreen();
+              screen = const HomeScreen();
               break;
             case 'Geo Info':
-              screen = GeoScreen();
+              screen = const GeoScreen();
               break;
             case 'Prefs':
-              screen = PreferencesScreen();
+              screen = const PreferencesScreen();
               break;
             default:
           }

@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
-import '../device_info.dart';
+import '../shared/device_info.dart';
 import '../model/geo_data.dart';
 import '../components/geo_list_view.dart';
 import '../shared/user_phone_data.dart';
@@ -44,13 +44,12 @@ class _Geo extends State<GeoScreen> {
 
   _sendMqttMsg(String message) {
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
-    if (builder != null) {
-      var myPayload = builder.payload;
-      builder.addString(message);
-      var publishMessage = _client!
-          .publishMessage("phone_location", MqttQos.atLeastOnce, myPayload!);
-      print(publishMessage);
-    }
+
+    var myPayload = builder.payload;
+    builder.addString(message);
+    var publishMessage = _client!
+        .publishMessage("phone_location", MqttQos.atLeastOnce, myPayload!);
+    print(publishMessage);
   }
 
   @override
@@ -68,13 +67,13 @@ class _Geo extends State<GeoScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Geo')),
-      drawer: MenuDrawer(),
+      appBar: AppBar(title: const Text('Geo')),
+      drawer: const MenuDrawer(),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DeviceInfo(),
+          const DeviceInfo(),
           Row(
             children: [
               const Text('Send to Server?: '),
@@ -91,7 +90,7 @@ class _Geo extends State<GeoScreen> {
             ],
           ),
           ElevatedButton(
-            child: Text("Get location"),
+            child: const Text("Get location"),
             onPressed: () {
               _getCurrentLocation();
             },
@@ -165,12 +164,12 @@ class _Geo extends State<GeoScreen> {
       setState(() {
         _lp = lp;
         print('Got permission response');
-        print(lp);
+        print(_lp);
 
-        final okPerms = [
-          LocationPermission.always,
-          LocationPermission.whileInUse
-        ];
+        // final okPerms = [
+        //   LocationPermission.always,
+        //   LocationPermission.whileInUse
+        // ];
       });
     });
   }

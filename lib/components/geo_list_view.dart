@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 class GeoListView extends StatelessWidget {
   List<GeoData> positions = [];
 
-  GeoListView(List<GeoData> pos) {
-    this.positions = List.from(pos.reversed);
+  GeoListView(List<GeoData> pos, {Key? key}) : super(key: key) {
+    positions = List.from(pos.reversed);
   }
 
   @override
@@ -31,11 +31,11 @@ class GeoListView extends StatelessWidget {
                   color: Colors.purple,
                   width: 2,
                 )),
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Text(
                   DateFormat('Hms').format(DateTime.fromMillisecondsSinceEpoch(
                       positions[index].timestamp)),
-                  style: TextStyle(fontSize: 10),
+                  style: const TextStyle(fontSize: 10),
                 ),
               ),
               Column(
