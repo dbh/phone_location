@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../shared/menu_drawer.dart';
 import '../shared/menu_bottom.dart';
+import 'package:phone_location/device_info.dart';
 
 class HomeScreen extends StatefulWidget {
   // const HomeScreen({Key? key}) : super(key: key)
@@ -30,9 +31,7 @@ class _HomeScreen extends State<HomeScreen> {
       appBar: AppBar(title: Text('Home')),
       drawer: MenuDrawer(),
       body: Column(
-        children: [
-          Text('Home'),
-        ],
+        children: [Text('Home'), const Text('Phone Info'), DeviceInfo()],
       ),
       bottomNavigationBar: const MenuBottom(),
     );

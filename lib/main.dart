@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:phone_location/screens/geo_screen_old.dart';
 import 'package:phone_location/screens/geo_screen.dart';
-import 'package:phone_location/screens/phone_info_screen.dart';
+// import 'package:phone_location/screens/phone_info_screen.dart';
 import 'package:phone_location/screens/preferences.dart';
 import 'package:phone_location/shared/user_phone_data.dart';
 import 'package:phone_location/shared/user_shared_prefs.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       // home: HomeScreen(),
       routes: {
         '/': (context) => HomeScreen(),
-        'phone': (context) => PhoneScreen(),
+        // 'phone': (context) => PhoneScreen(),
         'geo': (context) => GeoScreen(),
         'prefs': (context) => PreferencesScreen()
       },

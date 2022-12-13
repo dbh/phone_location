@@ -13,12 +13,12 @@ class MenuBottom extends StatelessWidget {
           label: 'Home',
         ),
         const BottomNavigationBarItem(
-          icon: Icon(Icons.phone_iphone),
-          label: 'Phone',
-        ),
-        const BottomNavigationBarItem(
           icon: Icon(Icons.map),
           label: 'Location',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Prefs',
         ),
       ],
       onTap: (int index) {
@@ -27,10 +27,10 @@ class MenuBottom extends StatelessWidget {
             Navigator.pushNamed(context, '/');
             break;
           case 1:
-            Navigator.pushNamed(context, 'phone');
+            Navigator.pushNamed(context, 'geo');
             break;
           case 2:
-            Navigator.pushNamed(context, 'geo');
+            Navigator.pushNamed(context, 'prefs');
             break;
         }
       },
