@@ -7,7 +7,7 @@ import 'package:mqtt_client/mqtt_client.dart';
 
 import '../device_info.dart';
 import '../model/geo_data.dart';
-import './geo_list_view.dart';
+import '../components/geo_list_view.dart';
 import '../shared/user_phone_data.dart';
 import '../shared/user_shared_prefs.dart';
 import '../shared/menu_drawer.dart';
