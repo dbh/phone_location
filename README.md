@@ -1,16 +1,18 @@
 # phone_location
 
-A new Flutter project.
+## Intro 
+Phone Location is an opportunity to play with Mobile Phone application development, Geo Location, MQTT Messaging, persistence, and map-based visualization.
 
-## Getting Started
+## Tech used 
+so far...
+* Flutter / Dart
+* Geo Location
+* MQTT
+* Python
+* Maria DB
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Project Repositories
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* [Phone Location](https://github.com/dbh/phone_location)
+* [MQTT Subscriber to DB Persistence](https://github.com/dbh/phone_location_sub_py)
