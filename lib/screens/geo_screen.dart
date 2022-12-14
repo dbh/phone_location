@@ -26,18 +26,36 @@ class _Geo extends State<GeoScreen> {
   LocationPermission? _lp;
   bool _isSendChecked = false;
   MqttServerClient? _client;
+  String? mqttEventMsg;
 
   _Geo() {
     print('_Geo constructor');
     _getPermission();
-    _getMqtt();
+    // _getMqtt();
+  }
+
+  _onMqttEvent(String eventType) {
+    print('_onMqttEvent ${eventType}');
+    if (mounted)
+      setState(() {
+        mqttEventMsg = eventType;
+      });
   }
 
   _getMqtt() async {
     _client = MqttServerClient(UserSharedPrefs.getMqttServer() ?? '', 'x');
+
     if (_client != null) {
+      _client!.onConnected = _onMqttEvent('onConnected');
+      _client!.onAutoReconnected = _onMqttEvent('onAutoReconnected');
+      _client!.onDisconnected = _onMqttEvent('onDisconnected');
+      _client!.onAutoReconnect = _onMqttEvent('onAutoReconnect');
+
+      _client!.doAutoReconnect(force: true);
+
       MqttClientConnectionStatus? connStatus = await _client!.connect(
           UserSharedPrefs.getMqttUser(), UserSharedPrefs.getMqttPassword());
+
       print(connStatus);
     }
   }
@@ -82,18 +100,30 @@ class _Geo extends State<GeoScreen> {
                 fillColor: MaterialStateProperty.resolveWith(getColor),
                 value: _isSendChecked,
                 onChanged: (bool? value) {
+                  print('Checkbox changed');
                   setState(() {
                     _isSendChecked = value!;
+                    if (_isSendChecked == false && _client != null) {
+                      _client!.disconnect();
+                      _client = null;
+                    }
                   });
                 },
-              )
+              ),
             ],
           ),
           ElevatedButton(
             child: const Text("Get location"),
             onPressed: () {
+              if (_isSendChecked && _client == null) {
+                _getMqtt();
+              }
               _getCurrentLocation();
             },
+          ),
+          Text(
+            mqttEventMsg ?? '',
+            style: TextStyle(color: Colors.red),
           ),
           if (_currentPosition != null)
             Column(
@@ -180,6 +210,7 @@ class _Geo extends State<GeoScreen> {
             forceAndroidLocationManager: true)
         .then((Position position) {
       setState(() {
+        mqttEventMsg = null;
         print(position);
         _currentPosition = position;
 
@@ -202,6 +233,9 @@ class _Geo extends State<GeoScreen> {
       });
     }).catchError((e) {
       print(e);
+      setState(() {
+        mqttEventMsg = e.toString();
+      });
     });
   }
 }
