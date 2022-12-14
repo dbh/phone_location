@@ -25,6 +25,7 @@ class _Geo extends State<GeoScreen> {
   var positions = <GeoData>[];
   LocationPermission? _lp;
   bool _isSendChecked = false;
+  bool _isMqttConnected = false;
   MqttServerClient? _client;
   String? mqttEventMsg;
 
@@ -38,6 +39,10 @@ class _Geo extends State<GeoScreen> {
     print('_onMqttEvent ${eventType}');
     if (mounted)
       setState(() {
+        if (eventType == 'onConnected') {
+          _isMqttConnected = true;
+        }
+
         mqttEventMsg = eventType;
       });
   }
@@ -53,15 +58,45 @@ class _Geo extends State<GeoScreen> {
 
       _client!.doAutoReconnect(force: true);
 
-      MqttClientConnectionStatus? connStatus = await _client!.connect(
-          UserSharedPrefs.getMqttUser(), UserSharedPrefs.getMqttPassword());
-
-      print(connStatus);
+      String locState = await getMqttState();
+      if (mounted)
+        setState(() {
+          mqttEventMsg = locState;
+        });
     }
   }
 
-  _sendMqttMsg(String message) {
+  Future<String> getMqttState() async {
+    String? errorStatus;
+    MqttClientConnectionStatus? connStatus = await _client!
+        .connect(
+            UserSharedPrefs.getMqttUser(), UserSharedPrefs.getMqttPassword())
+        .catchError(((e) {
+      errorStatus = e.toString();
+      _isSendChecked = false;
+    }));
+
+    if (errorStatus != null) {
+      print("errorStatus ${errorStatus}");
+      return errorStatus!;
+    } else {
+      print(connStatus);
+      print("connStatus state: ${connStatus?.state}");
+      return connStatus!.state.toString();
+    }
+  }
+
+  _sendMqttMsg(String message) async {
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
+
+    String preSendState = await getMqttState();
+    print(preSendState);
+    if (preSendState != "MqttConnectionState.connected") {
+      setState(() {
+        mqttEventMsg = "Cannot send. mqtt connection state is " + preSendState;
+      });
+      return;
+    }
 
     var myPayload = builder.payload;
     builder.addString(message);
@@ -102,11 +137,16 @@ class _Geo extends State<GeoScreen> {
                 onChanged: (bool? value) {
                   print('Checkbox changed');
                   setState(() {
-                    _isSendChecked = value!;
-                    if (_isSendChecked == false && _client != null) {
+                    if (value == false &&
+                        _isSendChecked == true &&
+                        _client != null) {
                       _client!.disconnect();
                       _client = null;
+                      _isMqttConnected = false;
+                    } else if (value == true) {
+                      _getMqtt();
                     }
+                    _isSendChecked = value ?? false;
                   });
                 },
               ),
@@ -115,9 +155,6 @@ class _Geo extends State<GeoScreen> {
           ElevatedButton(
             child: const Text("Get location"),
             onPressed: () {
-              if (_isSendChecked && _client == null) {
-                _getMqtt();
-              }
               _getCurrentLocation();
             },
           ),
