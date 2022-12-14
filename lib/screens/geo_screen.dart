@@ -39,10 +39,7 @@ class _Geo extends State<GeoScreen> {
     print('_onMqttEvent ${eventType}');
     if (mounted)
       setState(() {
-        if (eventType == 'onConnected') {
-          _isMqttConnected = true;
-        }
-
+        _isMqttConnected = eventType == 'onConnected';
         mqttEventMsg = eventType;
       });
   }
