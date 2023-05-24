@@ -15,4 +15,6 @@ so far...
 ## Project Repositories
 
 * [Phone Location](https://github.com/dbh/phone_location)
-* [MQTT Subscriber to DB Persistence](https://github.com/dbh/phone_location_sub_py)
+* MQTT Subscriber to DB Persistence
+  * [Go](https://github.com/dbh/phone_location_sub_go)
+  * [Python](https://github.com/dbh/phone_location_sub_py)
