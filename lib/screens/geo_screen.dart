@@ -36,12 +36,13 @@ class _Geo extends State<GeoScreen> {
   }
 
   _onMqttEvent(String eventType) {
-    print('_onMqttEvent ${eventType}');
-    if (mounted)
+    print('_onMqttEvent $eventType');
+    if (mounted) {
       setState(() {
         _isMqttConnected = eventType == 'onConnected';
         mqttEventMsg = eventType;
       });
+    }
   }
 
   _getMqtt() async {
@@ -56,10 +57,11 @@ class _Geo extends State<GeoScreen> {
       _client!.doAutoReconnect(force: true);
 
       String locState = await getMqttState();
-      if (mounted)
+      if (mounted) {
         setState(() {
           mqttEventMsg = locState;
         });
+      }
     }
   }
 
@@ -74,7 +76,7 @@ class _Geo extends State<GeoScreen> {
     }));
 
     if (errorStatus != null) {
-      print("errorStatus ${errorStatus}");
+      print("errorStatus $errorStatus");
       return errorStatus!;
     } else {
       print(connStatus);
@@ -90,7 +92,7 @@ class _Geo extends State<GeoScreen> {
     print(preSendState);
     if (preSendState != "MqttConnectionState.connected") {
       setState(() {
-        mqttEventMsg = "Cannot send. mqtt connection state is " + preSendState;
+        mqttEventMsg = "Cannot send. mqtt connection state is $preSendState";
       });
       return;
     }
@@ -157,7 +159,7 @@ class _Geo extends State<GeoScreen> {
           ),
           Text(
             mqttEventMsg ?? '',
-            style: TextStyle(color: Colors.red),
+            style: const TextStyle(color: Colors.red),
           ),
           if (_currentPosition != null)
             Column(

@@ -15,7 +15,7 @@ class GeoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("GeoListView ${positions.length}");
-    return Container(
+    return SizedBox(
       height: 300,
       child: ListView.builder(
         itemBuilder: ((context, index) {

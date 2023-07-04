@@ -9,7 +9,7 @@ class DeviceInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Phone Info',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),

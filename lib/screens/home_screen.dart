@@ -30,8 +30,8 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
       drawer: const MenuDrawer(),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           DeviceInfo(),
         ],
       ),
