@@ -1,0 +1,59 @@
+@startuml
+skinparam backgroundColor #F2F2F2
+
+component "lib/main.dart" as main {
+  [MyApp]
+}
+
+component "lib/screens/home_screen.dart" as home_screen {
+  [_HomeScreen]
+  [DeviceInfo]
+  [MenuDrawer]
+  [MenuBottom]
+}
+
+component "lib/screens/geo_screen.dart" as geo_screen {
+  [GeoScreen]
+  [GeoListView]
+}
+
+component "lib/screens/preferences.dart" as preferences {
+  [PreferencesScreen]
+  [MenuDrawer]
+  [MenuBottom]
+}
+
+component "lib/shared/device_info.dart" as device_info {
+  [DeviceInfo]
+}
+
+component "lib/shared/menu_drawer.dart" as menu_drawer {
+  [MenuDrawer]
+}
+
+component "lib/shared/menu_bottom.dart" as menu_bottom {
+  [MenuBottom]
+}
+
+component "lib/shared/user_phone_data.dart" as user_phone_data {
+  [UserPhoneData]
+}
+
+component "lib/shared/user_shared_prefs.dart" as user_shared_prefs {
+  [UserSharedPrefs]
+}
+
+component "lib/components/geo_list_view.dart" as geo_list_view {
+  [GeoListView]
+}
+
+main --> home_screen : uses
+main --> geo_screen : uses
+main --> preferences : uses
+home_screen --> device_info : uses
+home_screen --> menu_drawer : uses
+home_screen --> menu_bottom : uses
+geo_screen --> geo_list_view : uses
+preferences --> menu_drawer : uses
+preferences --> menu_bottom : uses
+@enduml
